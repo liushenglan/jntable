@@ -1,67 +1,4 @@
 <template>
-  <!-- author：sunnyLiu
-  date: 2017-12-8-->
-  <!--  该组件主要封装表格：其中包含操作和多选
-        html上的引用如下：
-       <jn-tablemanage 
-          :tableData="userData" 
-          :tableConfig="tableConfig" 
-          :pagiData="pagiData"
-          v-on:handleClick="handleClick"
-          v-on:selectionChange="selectionChange"
-          v-on:handlePageChange="pageChange" 
-          v-on:handleSizeChange="handleSizeChange">
-          </jn-tablemanage>
-       配置项的传入如下
-       ***table的配置项
-        tableConfig: {
-          ***操作项的宽度配置
-          handleWidth
-          ***ifSelected是否可多选 必传
-          ifSelected:true,
-          ***ifIndex是否可多选 必传
-          ifIndex:true,
-          ***ifHandle是否有操作项 必传
-          ifHandle:true,
-          ***ifPagination是否需要分页栏 必传
-          ifPagination:true,
-          ***titleData: 表头的值 prop：指当列在userData的key; label:指当列的表头的值；width:当列的宽 必传
-          titleData:[ {
-            prop: 'date',
-            label: '日期',
-            shortNum:"10" //字段如若过长截取10个字符显示，不传默认是截取10个字符
-            width: '180'
-          }, {
-            prop: 'name',
-            label: '姓名',
-            width: '180',
-          }, {
-            prop: 'address',
-            label: '地址',
-          }],
-          ***handleData: 有操作按钮的需要传入的值；当ifHandle为true时必传
-          ***key：该按钮的代表值,用来区分点击了哪个按钮；
-          ***btnName:该按钮的显示值；
-          ***btnIcon:该按钮的icon的class
-          handleData: [ {
-            key: 'del',
-            btnName: '删除',
-            btnIcon: 'el-icon-delete',
-          }, {
-            key: 'modify',
-            btnName: '编辑',
-            btnIcon: 'el-icon-edit',
-          }],
-        },
-
-        ***分页相关值得传入
-        pagiData：{
-            currentPage：1当前页
-            pageSizes：[10,20,40] 可选的当页条数
-            pageSize：10当页条数
-            total：20总条数
-        }
-  -->
   <div>
     <el-table
       class="tableComponent"
@@ -75,11 +12,11 @@
       @current-change="handleRowChange"
       @selection-change="selectionChange"
     >
-      <el-table-column align="center" v-if="tableConfig.ifSelected" type="selection" width="60"></el-table-column>
-      <el-table-column align="center" v-if="tableConfig.ifIndex" label="序号" type="index" width="60"></el-table-column>
+      <el-table-column align="center" v-if="checkSelect" type="selection" width="60"></el-table-column>
+      <el-table-column align="center" v-if="serialNumber" label="序号" type="index" width="60"></el-table-column>
       <el-table-column
         align="center"
-        v-for="title in tableConfig.titleData"
+        v-for="title in titleConfigure"
         :key="title.prop"
         :prop="title.prop"
         :label="title.label"
@@ -131,8 +68,8 @@
       <!-- 带有操作图标得列 -->
       <el-table-column
         align="center"
-        v-if="tableConfig.ifHasHandleData"
-        v-for="handles in tableConfig.hashandleData"
+        v-if="ifHasHandleData"
+        v-for="handles in hashandleData"
         :key="handles.prop"
         :label="handles.label"
         :width="handles.width"
@@ -143,17 +80,12 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        v-if="tableConfig.ifHandle"
-        label="操作"
-        :width="tableConfig.handleWidth"
-      >
+      <el-table-column align="center" v-if="handleBtn" label="操作" :width="handleWidth||200">
         <template slot-scope="scope">
           <el-button
             class="mr05"
-            v-if="handle.btn&&tableConfig.handleData.length<3"
-            v-for="handle in tableConfig.handleData"
+            v-if="handle.btn&&handleConfigure.length<3"
+            v-for="handle in handleConfigure"
             :key="handle.btnName"
             @click="handleClick(tableData[scope.$index], handle.key)"
             type="text"
@@ -162,22 +94,21 @@
           <el-popover ref="popoverHandle" placement="right" width="350" trigger="hover">
             <el-button
               class="mr05"
-              v-for="handle in tableConfig.handleData"
+              v-for="handle in handleConfigure"
               :key="handle.btnName"
               @click="handleClick(tableData[scope.$index], handle.key)"
               type="text"
               size="small"
             >{{handle.btnName}}</el-button>
-            <el-button v-if="tableConfig.handleData.length>2" slot="reference">操作</el-button>
+            <el-button v-if="handleConfigure.length>2" slot="reference">操作</el-button>
           </el-popover>
         </template>
       </el-table-column>
     </el-table>
 
-    <div class="pagi" v-if="!ifPage">
+    <div class="pagi" v-if="pagination">
       <el-pagination
         background
-        v-if="tableConfig.ifPagination"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="pagiData.currentPage"
@@ -197,7 +128,21 @@ export default {
   data() {
     return {};
   },
-  props: ["tableData", "tableConfig", "pagiData", "ifPage", "shortNum"],
+  props: [
+    "tableData",
+    "tableConfig",
+    "pagiData",
+    "shortNum",
+    "handleWidth",
+    "pagination",
+    "checkSelect",
+    "serialNumber",
+    "handleBtn",
+    "titleConfigure",
+    "handleConfigure",
+    "iconHandleConfigure",
+    "iconHandle"
+  ],
   methods: {
     // 当点操作按钮时 返回当前行的所有属性，以及按钮的key
     handleClick(data, key) {
@@ -236,3 +181,54 @@ export default {
   }
 };
 </script>
+<style type="text/css">
+.jnStatusOffline {
+  background: rgba(208, 208, 208, 1);
+}
+.jnStatusOnline {
+  animation: load 1.1s infinite ease;
+  -webkit-animation: load 1.1s infinite ease;
+}
+.statusShaw {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@-webkit-keyframes load {
+  0%,
+  100% {
+    background: rgba(0, 255, 0, 1);
+  }
+  20%,
+  80% {
+    background: rgba(0, 255, 0, 0.8);
+  }
+  40%,
+  60% {
+    background: rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    background: rgba(0, 255, 0, 0.2);
+  }
+}
+@keyframes load {
+  0%,
+  100% {
+    background: rgba(0, 255, 0, 1);
+  }
+  20%,
+  80% {
+    background: rgba(0, 255, 0, 0.8);
+  }
+  40%,
+  60% {
+    background: rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    background: rgba(0, 255, 0, 0.2);
+  }
+}
+</style>
