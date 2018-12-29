@@ -1,2 +1,18 @@
-# jntable
-使用vue封装element的table，优化成适用于佳楠的项目
+# v-jntable
+
+> a project for janan
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
