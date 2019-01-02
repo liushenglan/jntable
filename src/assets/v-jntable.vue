@@ -68,8 +68,8 @@
       <!-- 带有操作图标得列 -->
       <el-table-column
         align="center"
-        v-if="ifHasHandleData"
-        v-for="handles in hashandleData"
+        v-if="iconHandle"
+        v-for="handles in iconHandleConfigure"
         :key="handles.prop"
         :label="handles.label"
         :width="handles.width"
