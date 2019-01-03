@@ -46,6 +46,7 @@
               >
                 <span
                   slot="reference"
+                  class="pointer"
                 >{{tableData[scope.$index][title.prop]|strTruncation(title.shortNum||10)}}</span>
               </el-popover>
             </div>
@@ -59,6 +60,7 @@
                 >{{popoverData.label}}:{{tableData[scope.$index][popoverData.prop]}}</div>
                 <span
                   slot="reference"
+                  class="pointer"
                 >{{tableData[scope.$index][title.prop]|strTruncation(title.shortNum||10)}}</span>
               </el-popover>
             </div>
@@ -100,7 +102,7 @@
               type="text"
               size="small"
             >{{handle.btnName}}</el-button>
-            <el-button v-if="handleConfigure.length>=3" slot="reference">操作</el-button>
+            <el-button class="pointer" v-if="handleConfigure.length>=3" slot="reference">操作</el-button>
           </el-popover>
         </template>
       </el-table-column>
@@ -219,6 +221,9 @@ export default {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+.pointer {
+  cursor: pointer;
 }
 @-webkit-keyframes load {
   0%,
