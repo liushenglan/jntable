@@ -80,7 +80,7 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column align="center" v-if="handleBtn" label="操作" :width="handleWidth||200">
+      <el-table-column align="center" v-if="handleBtn" label="操作" :width="handleWidth">
         <template slot-scope="scope">
           <el-button
             class="mr05"
@@ -100,7 +100,7 @@
               type="text"
               size="small"
             >{{handle.btnName}}</el-button>
-            <el-button v-if="handleConfigure.length>2" slot="reference">操作</el-button>
+            <el-button v-if="handleConfigure.length>=3" slot="reference">操作</el-button>
           </el-popover>
         </template>
       </el-table-column>
@@ -128,21 +128,44 @@ export default {
   data() {
     return {};
   },
-  props: [
-    "tableData",
-    "tableConfig",
-    "pagiData",
-    "shortNum",
-    "handleWidth",
-    "pagination",
-    "checkSelect",
-    "serialNumber",
-    "handleBtn",
-    "titleConfigure",
-    "handleConfigure",
-    "iconHandleConfigure",
-    "iconHandle"
-  ],
+  props: {
+    tableData: {
+      default: () => [],
+      required: true
+    },
+    pagiData: {
+      default: () => {
+        if (!this.pagiData) this.pagiData = {};
+        if (!this.pagiData.currentPage) this.pagiData.currentPage = 1;
+        if (!this.pagiData.pageSizes)
+          this.pagiData.pageSizes = [10, 20, 30, 40];
+        if (!this.pagiData.pageSize) this.pagiData.pageSize = 10;
+        if (!this.pagiData.total) this.pagiData.total = 0;
+        return this.pagiData;
+      }
+    },
+    handleWidth: {
+      default: 200
+    },
+    checkSelect: {
+      default: false
+    },
+    serialNumber: {
+      default: false
+    },
+    pagination: {
+      default: false
+    },
+    handleBtn: {
+      default: false
+    },
+    titleConfigure: { default: () => [] },
+    handleConfigure: { default: () => [] },
+    iconHandleConfigure: { default: () => [] },
+    iconHandle: {
+      default: false
+    }
+  },
   methods: {
     // 当点操作按钮时 返回当前行的所有属性，以及按钮的key
     handleClick(data, key) {
