@@ -35,6 +35,7 @@ Vue.use(vJntable)
     ></v-jntable>
 ```
 ##参数说明
+
 | 参数 | 说明 | 类型 |可选值 |默认值|
 | ------ | ------ | ------ | ------ | ------ |
 | tableData | table所展示的数据 | Array |-|-|
@@ -48,7 +49,11 @@ Vue.use(vJntable)
 | handle-configure | 操作列的具体值 | Array |-|[]|
 | icon-handle-configure | 带有图标的操作列的具体值 | Array |-|[]|
 
+```
+pagiData是object，对应的参数如下
+```
 ##pagiData[#pagiData]
+
 | 参数 | 说明 | 类型 |可选值 |默认值|
 | ------ | ------ | ------ | ------ | ------ |
 | currentPage | 当前所在页 | number |-|1|
@@ -56,9 +61,17 @@ Vue.use(vJntable)
 | pageSize | 当前页的个数 | number |-|10|
 | total | 总个数 | number |-|0|
 
+```
+pagiSizes是可以选择的每页可以显示的数据条数
+```
 ##事件
+
 | 事件名 | 说明 | 参数 |
 | ------ | ------ | ------ |
 | selectionChange | 当前所在页 | - |
 | handlePageChange | 当前所在页 | - |
 | handleSizeChange | 当前所在页 | - |
+
+```
+事件无说明
+```
