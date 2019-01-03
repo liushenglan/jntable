@@ -16,6 +16,7 @@ vue项目中的引用
 import vJntable from 'v-jntable'
 Vue.use(vJntable)
 ```
+```html
  <v-jntable
       :tableData="equipmentsData"
       :handle-width="300"
@@ -32,11 +33,12 @@ Vue.use(vJntable)
       v-on:handlePageChange="pageChange"
       v-on:handleSizeChange="handleSizeChange"
     ></v-jntable>
-
+```
+##参数说明
 | 参数 | 说明 | 类型 |可选值 |默认值|
 | ------ | ------ | ------ | ------ | ------ |
 | tableData | table所展示的数据 | Array |-|-|
-| pagiData | 分页的数据 | object(#pagiData) |-|{}|
+| pagiData | 分页的数据 | object[pagiData](#pagiData) |-|{}|
 | handle-width | 操作项的宽度 | number |-|200|
 | pagination | 是否有分页 | boolean |-|false|
 | check-select | 是否有勾选 | boolean |-|false|
@@ -46,7 +48,7 @@ Vue.use(vJntable)
 | handle-configure | 操作列的具体值 | Array |-|[]|
 | icon-handle-configure | 带有图标的操作列的具体值 | Array |-|[]|
 
-<a id="pagiData">pagiData</a>
+##pagiData[#pagiData]
 | 参数 | 说明 | 类型 |可选值 |默认值|
 | ------ | ------ | ------ | ------ | ------ |
 | currentPage | 当前所在页 | number |-|1|
@@ -54,7 +56,7 @@ Vue.use(vJntable)
 | pageSize | 当前页的个数 | number |-|10|
 | total | 总个数 | number |-|0|
 
-事件
+##事件
 | 事件名 | 说明 | 参数 |
 | ------ | ------ | ------ |
 | selectionChange | 当前所在页 | - |
