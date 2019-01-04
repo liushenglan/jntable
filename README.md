@@ -72,26 +72,28 @@ pagiSizes是可以选择的每页可以显示的数据条数
 | ------ | ------ | ------ | ------ | ------ |
 | prop | 当前列得数据的key的名称 | string |-|-|
 | label | 当前列表头的名称 | string|-|-|
-| data | 弹出框显示的内容。当ifPopover为true时，该字段必填 | Array[data](#data) |-|10|
+| popoverData | 弹出框显示的内容。当ifPopover为true时，该字段必填 | Array[popoverData](#data) |-|10|
 | shortNum | 最多显示文字的个数 | number |-|-|
 | ifPopover | 是否需要弹出框 | boolean |-|-|
 | width | 该列的宽度 | string |-|-|
+| ifOnline | 当前列是否是在离线 | boolean |-|-|
+
 
 ```
-data是当ifPopover为true时必填
+popoverData是当ifPopover为true时必填
 ```
 ```javascript
 {
       prop: "inTemp",
       label: "箱内温度",
-      data: [{ prop: "inTemp1", label: '箱内温度1' }, { prop: "inTemp2", label: '箱内温度2' }, { prop: "inTemp3", label: '箱内温度3' }],
+      popoverData: [{ prop: "inTemp1", label: '箱内温度1' }, { prop: "inTemp2", label: '箱内温度2' }, { prop: "inTemp3", label: '箱内温度3' }],
       shortNum: "4",
       ifPopover: true,
       width: "69"
     }
 ```
 
-## <span id="data">data</span>
+## <span id="data">popoverData</span>
 
 | 参数 | 说明 | 类型 |可选值 |默认值|
 | ------ | ------ | ------ | ------ | ------ |

@@ -55,7 +55,7 @@
                 <div>{{title.label}}:{{tableData[scope.$index][title.prop]}}</div>
                 <div
                   width="150"
-                  v-for="popoverData in title.data"
+                  v-for="popoverData in title.popoverData"
                   :key="popoverData.prop"
                 >{{popoverData.label}}:{{tableData[scope.$index][popoverData.prop]}}</div>
                 <span
