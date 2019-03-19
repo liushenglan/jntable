@@ -82,7 +82,7 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column align="center" v-if="handleBtn" label="操作" :width="handleWidth">
+      <el-table-column align="center" fixed="right" v-if="handleBtn" label="操作" :width="handleWidth">
         <template slot-scope="scope">
           <el-button
             class="mr05"
