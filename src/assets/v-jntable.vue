@@ -29,7 +29,16 @@
             style="left: 44%;"
             v-if="title.ifOnline"
             :class="tableData[scope.$index][title.prop]+''==='0'?'jnStatusOnline':'jnStatusOffline'"
-          ></div>
+          >
+          </div>
+          <!-- 是否是进度条 -->
+          <div
+            class="statusShaw"
+            style="left: 44%;"
+            v-else-if="title.ifUpdownLoading"
+          >
+          <el-progress :text-inside="true" :stroke-width="18" :percentage="tableData[scope.$index][title.prop]" :status="tableData[scope.$index][title.prop]=='100'?'success':'text'"></el-progress>
+          </div>
           <!-- <i class="el-jn-icon-yuandianda" ></i> -->
           <div v-else>
             <div v-if="!title.ifPopover">
