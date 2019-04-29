@@ -7,7 +7,7 @@
       :data="tableData"
       :header-cell-style="headerCellStyle"
       tooltip-effect="dark"
-      height="40rem"
+      :height="tableHeight"
       highlight-current-row
       @current-change="handleRowChange"
       @selection-change="selectionChange"
@@ -29,16 +29,40 @@
             style="left: 44%;"
             v-if="title.ifOnline"
             :class="tableData[scope.$index][title.prop]+''==='0'?'jnStatusOnline':'jnStatusOffline'"
-          >
-          </div>
+          ></div>
           <!-- 是否是进度条 -->
           <div
-            class="statusShaw"
             style="left: 44%;"
-            v-else-if="title.ifUpdownLoading"
+            v-else-if="title.ifUpdownLoading&&tableData[scope.$index][title.prop]!==null"
           >
-          <el-progress :text-inside="true" :stroke-width="18" :percentage="tableData[scope.$index][title.prop]" :status="tableData[scope.$index][title.prop]=='100'?'success':'text'"></el-progress>
+            <!-- 下载进行以及下载完成时的进度条 -->
+            <el-progress
+              v-if="tableData[scope.$index]['downloadStatus']!='2'"
+              :text-inside="true"
+              :stroke-width="18"
+              :percentage="Number(tableData[scope.$index][title.prop])"
+              :status="tableData[scope.$index][title.prop]=='100'?'success':'text'"
+            ></el-progress>
+            <!-- 下载失败 -->
+            <el-popover
+              ref="popover"
+              v-else
+              placement="right"
+              width="150"
+              trigger="hover"
+              :content="tableData[scope.$index]['errcodeName']"
+            >
+              <el-progress
+                :text-inside="true"
+                :stroke-width="18"
+                class="pointer"
+                :percentage="Number(tableData[scope.$index][title.prop])"
+                status="exception"
+                slot="reference"
+              ></el-progress>
+            </el-popover>
           </div>
+
           <!-- <i class="el-jn-icon-yuandianda" ></i> -->
           <div v-else>
             <div v-if="!title.ifPopover">
@@ -91,7 +115,13 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column align="center" fixed="right" v-if="handleBtn" label="操作" :width="handleWidth">
+      <el-table-column
+        align="center"
+        fixed="right"
+        v-if="handleBtn"
+        label="操作"
+        :width="handleWidth"
+      >
         <template slot-scope="scope">
           <el-button
             class="mr05"
@@ -157,6 +187,9 @@ export default {
     },
     handleWidth: {
       default: 200
+    },
+    tableHeight: {
+      default: "40rem"
     },
     checkSelect: {
       default: false
