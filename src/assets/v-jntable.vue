@@ -50,7 +50,7 @@
               placement="right"
               width="150"
               trigger="hover"
-              :content="tableData[scope.$index]['errcodeName']"
+              :content="tableData[scope.$index]['errcodeName']+''"
             >
               <el-progress
                 :text-inside="true"
@@ -74,7 +74,7 @@
                 placement="right"
                 width="300"
                 trigger="hover"
-                :content="tableData[scope.$index][title.prop]"
+                :content="tableData[scope.$index][title.prop]+''"
                 v-else
               >
                 <span
