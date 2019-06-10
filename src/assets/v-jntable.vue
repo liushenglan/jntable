@@ -2,7 +2,7 @@
   <div>
     <el-table
       class="tableComponent"
-      ref="table"
+      :ref="tableRef"
       stripe
       :data="tableData"
       :header-cell-style="headerCellStyle"
@@ -202,6 +202,9 @@ export default {
     },
     handleBtn: {
       default: false
+    },
+    tableRef: {
+      default: "table"
     },
     titleConfigure: { default: () => [] },
     handleConfigure: { default: () => [] },
