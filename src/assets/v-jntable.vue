@@ -149,6 +149,7 @@
 
     <div class="pagi" v-if="pagination">
       <el-pagination
+        v-if="paginationMM"
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -158,6 +159,16 @@
         prev-text="上一页"
         next-text="下一页"
         layout="pager, ->, prev, next, jumper"
+        :total="pagiData.total"
+      ></el-pagination>
+      <el-pagination
+        v-else
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pagiData.currentPage"
+        :page-sizes="pagiData.pageSizes"
+        :page-size="pagiData.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
         :total="pagiData.total"
       ></el-pagination>
     </div>
@@ -201,6 +212,9 @@ export default {
       default: false
     },
     handleBtn: {
+      default: false
+    },
+    paginationMM: {
       default: false
     },
     tableRef: {
