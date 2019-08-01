@@ -131,7 +131,10 @@
             @click="handleClick(tableData[scope.$index], handle.key)"
             type="text"
             size="small"
-          >{{handle.btnName}}</el-button>
+          >
+            <i v-if="handle.btnIcon" :class="handle.btnIcon"></i>
+            {{handle.btnName||''}}
+          </el-button>
           <el-popover ref="popoverHandle" placement="right" width="350" trigger="hover">
             <el-button
               class="mr05"
@@ -140,7 +143,10 @@
               @click="handleClick(tableData[scope.$index], handle.key)"
               type="text"
               size="small"
-            >{{handle.btnName}}</el-button>
+            >
+              <i v-if="handle.btnIcon" :class="handle.btnIcon"></i>
+              {{handle.btnName||''}}
+            </el-button>
             <el-button class="pointer" v-if="handleConfigure.length>=3" slot="reference">操作</el-button>
           </el-popover>
         </template>
